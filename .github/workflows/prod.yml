@@ -1,0 +1,50 @@
+name: Deploy Turbo Apps
+
+on:
+  push:
+    branches:
+      - main
+      - staging
+  pull_request:
+    branches:
+      - main
+      - staging
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        env: [staging, production] # Define your environments
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18" # Use your node version here
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install TurboRepo
+        run: npm install turbo --global
+
+      # Detect changes in packages and apps
+      - name: Detect changed packages
+        id: changes
+        run: |
+          turbo run build --filter=[$(turbo run affected --output=changed)] --dry-run
+
+      # Deploy each changed app based on the environment
+      - name: Deploy to ${{ matrix.env }} environment
+        if: steps.changes.outputs.changed_apps != ''
+        run: |
+          if [ "${{ matrix.env }}" == "staging" ]; then
+            turbo run deploy --filter=[$(steps.changes.outputs.changed_apps)] --env=staging
+          elif [ "${{ matrix.env }}" == "production" ]; then
+            turbo run deploy --filter=[$(steps.changes.outputs.changed_apps)] --env=production
+          fi
