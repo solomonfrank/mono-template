@@ -17,7 +17,7 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React exitedss</h1>
+      <h1>Vite + React exited by main</h1>
 
       <Button appName="Vite">
         From library updated rea list edit all the way
