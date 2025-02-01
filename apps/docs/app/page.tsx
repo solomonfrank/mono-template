@@ -33,7 +33,9 @@ export default function Home() {
         />
         <ol>
           <li>
-            Doc app Get started by editing <code>apps/docs/app/page.tsx</code>
+            {" "}
+            ox Doc app Get started by editing{" "}
+            <code>apps/docs/app/page.tsx</code>
           </li>
           <li>Save and see your changes instantly.</li>
         </ol>
