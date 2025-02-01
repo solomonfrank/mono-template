@@ -33,4 +33,4 @@ jobs:
       - name: Detect changed packages
         id: changes
         run: |
-          turbo build --filter=...[${{ github.event.pull_request.base.sha}}...HEAD]
+          turbo build --filter=[${{ github.event.pull_request.base.sha}}]
