@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         app: [web, employer]
-        env: [staging, production] # Define your environments
+        env: [staging] # Define your environments
 
     steps:
       - name: Checkout code
