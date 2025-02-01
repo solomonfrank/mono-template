@@ -29,4 +29,4 @@ jobs:
       - name: Detect changed packages
         id: changes
         run: |
-          turbo build --filter=[origin/main]
+          turbo build --filter=[origin/main...HEAD]
