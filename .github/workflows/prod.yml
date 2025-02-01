@@ -24,7 +24,14 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "22.13.0" # Use your node version here
+          node-version: "18.13.0" # Updated to a valid Node.js version
+
+      - name: Debug Git Info
+        run: |
+          echo "Event name: ${{ github.event_name }}"
+          echo "Base SHA: ${{ github.event.pull_request.base.sha }}"
+          echo "Current SHA: ${{ github.sha }}"
+          git rev-parse HEAD
 
       - name: Install dependencies
         run: npm install
@@ -32,8 +39,17 @@ jobs:
       - name: Install TurboRepo
         run: npm install turbo --global
 
-      # Detect changes in packages and apps
       - name: Detect changed packages
         id: changes
         run: |
-          turbo build --filter=[${{ github.event.pull_request.base.sha}}]
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE_SHA=${{ github.event.pull_request.base.sha }}
+            # Fallback if base SHA is empty
+            if [ -z "$BASE_SHA" ]; then
+              BASE_SHA=$(git rev-parse HEAD^1)
+            fi
+            turbo build --filter=[$BASE_SHA]
+          else
+            # For push events, use the previous commit
+            turbo build --filter=[HEAD^1]
+          fi
