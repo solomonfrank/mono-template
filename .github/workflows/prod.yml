@@ -34,4 +34,4 @@ jobs:
       - name: Detect changed packages
         id: changes
         run: |
-          turbo run build --filter=[$(apps/${{ matrix.app }})] --dry-run
+          turbo run build --affected
