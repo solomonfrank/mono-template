@@ -10,11 +10,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        app: [web, employer]
-        env: [staging] # Define your environments
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -34,4 +29,4 @@ jobs:
       - name: Detect changed packages
         id: changes
         run: |
-          turbo run build --affected
+          turbo build --filter=[HEAD^1]
