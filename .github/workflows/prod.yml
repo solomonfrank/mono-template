@@ -16,6 +16,7 @@ jobs:
 
     strategy:
       matrix:
+        app: [web, employer]
         env: [staging, production] # Define your environments
 
     steps:
@@ -37,7 +38,7 @@ jobs:
       - name: Detect changed packages
         id: changes
         run: |
-          turbo run build --filter=[$(turbo run affected --output=changed)] --dry-run
+          turbo run build --filter=[$(apps/${{ matrix.app }})] --dry-run
 
       # Deploy each changed app based on the environment
       - name: Deploy to ${{ matrix.env }} environment
