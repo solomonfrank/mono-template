@@ -5,6 +5,10 @@ on:
     branches:
       - main
       - staging
+  pull_request:
+    branches:
+      - main
+      - staging
 
 jobs:
   deploy:
@@ -29,4 +33,4 @@ jobs:
       - name: Detect changed packages
         id: changes
         run: |
-          turbo build --filter=[origin/main...HEAD]
+          turbo build --filter=...[${{ github.event.pull_request.base.sha}}...HEAD]
