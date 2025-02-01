@@ -34,4 +34,4 @@ jobs:
       - name: Detect changed packages
         id: changes
         run: |
-          turbo run build --filter={.apps/*}[HEAD^1]
+          turbo run build --affected
