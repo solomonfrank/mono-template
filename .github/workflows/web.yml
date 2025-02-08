@@ -29,6 +29,8 @@ jobs:
 
       - name: Install Dependencies
         run: npm install
+      - name: Install TurboRepo
+        run: npm install turbo --global
 
       - name: Build App1
         run: turbo build --filter=web
