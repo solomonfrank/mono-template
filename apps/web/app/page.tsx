@@ -34,7 +34,7 @@ export default function Home() {
         <ol>
           <li>
             {" "}
-            come over here cool Ok web Get started by editing update hhhhh
+            come over here cool Ok web Get started by editing update hhhhh eded
             <code>apps/web/app/page.tsx tested</code>
           </li>
           <li>Save and see your changes instantly.</li>
