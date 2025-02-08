@@ -31,7 +31,7 @@ jobs:
         run: npm install
 
       - name: Build App1
-        run: npm run build
+        run: turbo build --filter=web
 
       - name: Deploy Web
         run: echo "Add your deployment steps here"
