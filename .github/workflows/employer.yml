@@ -29,10 +29,12 @@ jobs:
 
       - name: Install Dependencies
         run: npm install
+      - name: Install TurboRepo
+        run: npm install turbo --global
 
-      - name: Build App1
-        run: npm run build
+      - name: Build employer
+        run: turbo build --filter=employer
 
-      - name: Deploy App1
+      - name: Deploy employer
         run: echo "Add your deployment steps here"
         # Add your specific deployment steps
