@@ -1,0 +1,38 @@
+# .github/workflows/app1-deploy.yml
+name: Web Deployment
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "apps/web/**"
+      - "packages/**" # Include shared packages
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "apps/web/**"
+      - "packages/**"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build App1
+        run: npm run build
+
+      - name: Deploy Web
+        run: echo "Add your deployment steps here"
+        # Add your specific deployment steps
